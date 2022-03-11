@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.zcs.demo.album">
+
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!--拉取第三方应用授权-->
+    <queries>
+        <!--微信-->
+        <package android:name="com.tencent.mm" />
+        <!--qq-->
+        <package android:name="com.tencent.mobileqq" />
+        <!--支付宝 -->
+        <package android:name="com.eg.android.AlipayGphone" />
+        <!--淘宝 -->
+        <package android:name="com.taobao.taobao" />
+        <!--拼多多 -->
+        <package android:name="com.xunmeng.pinduoduo" />
+        <!--抖音-->
+        <package android:name="com.ss.android.ugc.aweme" />
+        <!--芒果tv -->
+        <package android:name="com.hunantv.imgo.activity" />
+        <!--腾讯视频 -->
+        <package android:name="com.tencent.qqlive" />
+        <!--人人美剧 -->
+        <package android:name="com.zhongduomei.rrmj.society" />
+        <!--爱奇艺 -->
+        <package android:name="com.qiyi.video" />
+        <!--哔哩哔哩 -->
+        <package android:name="tv.danmaku.bili" />
+        <!--新浪微博 -->
+        <package android:name="com.sina.weibo" />
+        <!--小红书 -->
+        <package android:name="com.xingin.xhs" />
+        <!--知乎 -->
+        <package android:name="com.zhihu.android" />
+        <!--网易云音乐 -->
+        <package android:name="com.netease.cloudmusic" />
+        <!--qq音乐 -->
+        <package android:name="com.tencent.qqmusic" />
+        <!--饿了么 -->
+        <package android:name="me.ele" />
+        <!--美团 -->
+        <package android:name="com.sankuai.meituan.takeoutnew" />
+        <!--夸克 -->
+        <package android:name="com.quark.browser" />
+        <!--学习通 -->
+        <package android:name="com.chaoxing.mobile" />
+        <!--不背单词 -->
+        <package android:name="cn.com.langeasy.LangEasyLexis" />
+        <!--叨叨记账 -->
+        <package android:name="com.pengda.mobile.hhjz" />
+        <!--酷安 -->
+        <package android:name="com.coolapk.market" />
+        <!--小米便签 -->
+        <package android:name="com.miui.notes" />
+        <!--菜鸟裹裹 -->
+        <package android:name="com.cainiao.wireless" />
+        <!--阅读 -->
+        <package android:name="io.legado.app.release" />
+        <!--天气 -->
+        <package android:name="com.miui.weather2" />
+        <!--钉钉 -->
+        <package android:name="com.alibaba.android.rimet" />
+        <!--可话-->
+        <package android:name="com.app.tideswing" />
+        <!--联系人 -->
+        <package android:name="com.android.contacts" />
+        <!--短信 -->
+        <package android:name="com.android.mms" />
+        <!--miui主题 -->
+        <package android:name="com.miui.mediaeditor" />
+<!--        &lt;!&ndash; &ndash;&gt;-->
+<!--        <package android:name="" />-->
+<!--        &lt;!&ndash; &ndash;&gt;-->
+<!--        <package android:name="" />-->
+<!--        &lt;!&ndash; &ndash;&gt;-->
+<!--        <package android:name="" />-->
+<!--        &lt;!&ndash; &ndash;&gt;-->
+<!--        <package android:name="" />-->
+<!--        &lt;!&ndash; &ndash;&gt;-->
+<!--        <package android:name="" />-->
+<!--        &lt;!&ndash; &ndash;&gt;-->
+<!--        <package android:name="" />-->
+<!--        &lt;!&ndash; &ndash;&gt;-->
+<!--        <package android:name="" />-->
+<!--        &lt;!&ndash; &ndash;&gt;-->
+        <package android:name="com.google.android.youtube" />
+        <package android:name="com.google.android.googlequicksearchbox" />
+        <package android:name="com.kotlin.eyeview" />
+        <package android:name="com.hyq.hm.test.blur.video" />
+        <package android:name="com.google.android.apps.nexuslauncher" />
+        <package android:name="com.lyd.jk.blurview" />
+        <package android:name="com.google.android.documentsui" />
+        <package android:name="com.example.myapplication" />
+        <package android:name="com.example.useapptime" />
+        <package android:name="com.example.eyedt" />
+<!--        &lt;!&ndash;相机&ndash;&gt;-->
+<!--        <intent>-->
+<!--            <action android:name="android.media.action.IMAGE_CAPTURE" />-->
+<!--        </intent>-->
+    </queries>
+
+    <application
+        android:name=".BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/tu"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".usage.AppUsageActivity"
+            android:label="@string/label_app_usage" />
+    </application>
+
+</manifest>
