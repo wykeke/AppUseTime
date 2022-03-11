@@ -1,6 +1,7 @@
 package com.zcs.demo.album;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -15,6 +17,7 @@ import android.view.animation.Transformation;
 
 import androidx.annotation.Nullable;
 
+import com.zcs.demo.album.usage.AppUsageActivity;
 import com.zcs.demo.album.utils.JDateKit;
 
 import java.util.List;
@@ -62,6 +65,27 @@ public class PieChart extends View {
     private float sumValue = 0;//数据值的总和
     private String totaltime = "";
 
+//    private int screenHeight;
+//    private int screenWidth;
+//
+//    //得到屏幕的宽和高
+//    public int getScreenHeight() {
+//        return screenHeight;
+//    }
+//
+//    public void setScreenHeight(int screenHeight) {
+//        this.screenHeight = screenHeight;
+//    }
+//
+//    public int getScreenWidth() {
+//        return screenWidth;
+//    }
+//
+//    public void setScreenWidth(int screenWidth) {
+//        this.screenWidth = screenWidth;
+//        Log.d("screenWidth", "setScreenWidth: "+screenWidth);
+//    }
+
     public PieChart(Context context) {
         super(context);
         init();
@@ -85,7 +109,7 @@ public class PieChart extends View {
         mTvPaint = new Paint();
         mTvPaint.setStyle(Paint.Style.FILL);
         mTvPaint.setColor(Color.GRAY);
-        mTvPaint.setTextSize(30);
+        mTvPaint.setTextSize(32);
         //初始化动画
         mAnimation = new PieChartAnimation();
         mAnimation.setDuration(ANIMATION_DURATION);
@@ -194,6 +218,7 @@ public class PieChart extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+//        Log.d("屏幕宽高", "onDraw: "+screenWidth+" "+screenHeight);
         if (mData == null) {
             return;
         }
@@ -214,16 +239,16 @@ public class PieChart extends View {
         RectF rectF = new RectF(-r, -r, r, r);
         RectF rectF1 = new RectF(-r1, -r1, r1, r1);
         RectF rectF2 = new RectF(-r2, -r2, r2, r2);
-        RectF rectF3 = new RectF(-r3,-r3,r3,r3);
+//        RectF rectF3 = new RectF(-r3,-r3,r3,r3);
         for (int i = 0; i < mData.size(); i++) {
             PieData data = mData.get(i);
             //5.设置颜色
             mPaint.setColor(data.getColor());
-            mPaint.setStyle(Paint.Style.STROKE);
+            mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
             //6.绘制饼图
             canvas.drawArc(rectF, currentStartAngle, data.getAngle(), true, mPaint);
-            mPaint.setStyle(Paint.Style.FILL);
-            canvas.drawArc(rectF3,currentStartAngle,data.getAngle(),true,mPaint);
+//            mPaint.setStyle(Paint.Style.STROKE);
+//            canvas.drawArc(rectF3,currentStartAngle,data.getAngle(),true,mPaint);
             //7.绘制下一块扇形时先将角度加上当前扇形的角度
             mPaint.setColor(data.getColor());
             stopX = (float) ((r + 30) * Math.cos((2 * currentStartAngle + data.getAngle()) / 2 * Math.PI / 180));
@@ -264,29 +289,31 @@ public class PieChart extends View {
         //绘制中心空白处
         mPaint.setColor(0x80FFFFFF);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        canvas.drawArc(rectF2, currentStartAngle, 360f, true, mPaint);
-        Log.d("中心1", "onDraw: "+rectF2+" "+currentStartAngle);
-        //绘制中心阴影部分
-        mPaint.setColor(Color.parseColor("#FFFFFF"));
-        mPaint.setStyle(Paint.Style.STROKE);
         canvas.drawArc(rectF1, currentStartAngle, 360f, true, mPaint);
-        Log.d("中心2", "onDraw: "+rectF1+" "+currentStartAngle);
+//        Log.d("中心1", "onDraw: "+rectF2+" "+currentStartAngle);
+        //绘制中心阴影部分
+//        mPaint.setColor(Color.parseColor("#0000000"));
+//        mPaint.setColor(Color.BLACK);
+//        mPaint.setStyle(Paint.Style.STROKE);
+//        canvas.drawArc(rectF1, currentStartAngle, 360f, true, mPaint);
+//        Log.d("中心2", "onDraw: "+rectF1+" "+currentStartAngle);
         //绘制文字
         mPaint.setColor(Color.BLACK);
-        mPaint.setTextSize(80);
+        mPaint.setTextSize(50);
 //        canvas.drawText("总时间", centerX, centerY, mPaint);
 //        Rect textRect = new Rect();
 //        mPaint.getTextBounds(str, 0, str.length(), textRect);
         // canvas.drawText("", -textRect.width() / 2, 0, mPaint);
         Log.d("左右", "onDraw: " + mWidth +"  "+ mHeight);
         Log.d("中心", "onDraw: " + centerX +"  "+ centerY);
+        Log.d("get", "onDraw: "+getTop()+","+getBottom()+","+getLeft()+","+getRight());
 //        mPaint.setColor(Color.BLACK);
 //        mPaint.setTextSize(80);
-        canvas.drawText("时间",centerX/10,centerY/10,mPaint);
+        canvas.drawText(totaltime,-140,10,mPaint);
     }
 
 
-    /**
+    /*
      * 自定义动画
      */
     public class PieChartAnimation extends Animation {
@@ -322,9 +349,15 @@ public class PieChart extends View {
 
 
     public final static int[] COLORS = {
-            Color.rgb(192, 255, 140), Color.rgb(140, 234, 255)
-            , Color.rgb(255, 247, 140), Color.rgb(255, 208, 140)
-            , Color.rgb(140, 234, 255), Color.rgb(255, 140, 157)
+            Color.rgb(174, 200, 211), Color.rgb(40, 122, 136)
+            , Color.rgb(104, 166, 177), Color.rgb(152, 184, 199)
+            , Color.rgb(42, 77, 97), Color.rgb(255, 140, 157)
             , Color.rgb(45, 192, 252), Color.rgb(53, 194, 209)
-            , Color.rgb(52, 152, 219), Color.rgb(255, 255, 240)};
+            , Color.rgb(52, 152, 219), Color.rgb(255, 255, 240)
+//            Color.rgb(192, 255, 140), Color.rgb(140, 234, 255)
+//            , Color.rgb(255, 247, 140), Color.rgb(255, 208, 140)
+//            , Color.rgb(140, 234, 255), Color.rgb(255, 140, 157)
+//            , Color.rgb(45, 192, 252), Color.rgb(53, 194, 209)
+//            , Color.rgb(52, 152, 219), Color.rgb(255, 255, 240)
+    };
 }

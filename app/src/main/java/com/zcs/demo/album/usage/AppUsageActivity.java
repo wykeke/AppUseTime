@@ -1,8 +1,10 @@
 package com.zcs.demo.album.usage;
 
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -44,6 +46,7 @@ public class AppUsageActivity extends BaseActivity {
     //设置切换tab
     private static final String[] TAB_NAMES = {"今日数据", "昨日数据", "本周数据", "本月数据", "年度数据"};
     private boolean isGoToGrand = false;// 是否去过授权页面
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
